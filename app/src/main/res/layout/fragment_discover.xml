@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="码云推荐"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_recommend"
+        android:textColor="#ee00"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="开源软件"
+        android:textSize="18sp"
+        android:id="@+id/btn_programme"
+        android:textColor="#ee00"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="扫一扫"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
+        android:id="@+id/btn_scan"
+        android:textColor="#ee00"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="摇一摇"
+        android:gravity="center_vertical"
+        android:textColor="#ee00"
+        android:id="@+id/btn_shake"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="附近程序员"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:textColor="#ee00"
+        android:layout_marginTop="50dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="线下活动"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:textColor="#ee00"/>
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.liaoinstan.springview.widget.SpringView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/spring_tweet">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:id="@+id/recycler_tweet"></android.support.v7.widget.RecyclerView>
+    </com.liaoinstan.springview.widget.SpringView>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/top"
+        android:layout_gravity="bottom|right"
+        android:id="@+id/top_newTweet"/>
+</FrameLayout>

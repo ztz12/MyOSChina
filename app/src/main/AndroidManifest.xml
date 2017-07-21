@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ztz.myoschina">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.AuthorActivity">
+
+        </activity>
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.welcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.TestTwoActivity" />
+        <activity android:name=".activity.TestThreeActivity" />
+        <activity android:name=".activity.TestFourActivity" />
+        <activity android:name=".activity.TestFiveActivity" />
+        <activity android:name=".activity.NewsActivity" />
+        <activity android:name=".activity.PostActivity" />
+        <activity android:name=".activity.TweetActivity" />
+        <activity android:name=".activity.TweetActivity2" />
+        <!-- Umeng 分享集成activity -->
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <!-- qq -->
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 改成自己apk -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59126e14ae1bf80f7a002273" />
+
+        <activity android:name=".activity.TestSixActivity" />
+        <activity android:name=".activity.TestSevenActivity" />
+        <activity android:name=".activity.ShakeActivity"></activity>
+        <activity android:name=".activity.Main2Activity">
+        </activity>
+        <activity android:name=".activity.BaseActivity"/>
+        <activity android:name=".activity.ImagePagerActivity"/>
+    </application>
+
+</manifest>

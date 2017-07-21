@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scView">
+    <com.liaoinstan.springview.widget.SpringView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/news_spring">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_compare_news"
+        android:background="#ffffff"></android.support.v7.widget.RecyclerView>
+    </com.liaoinstan.springview.widget.SpringView>
+    </ScrollView>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/top"
+        android:layout_gravity="bottom|right"
+        android:id="@+id/top"/>
+</FrameLayout>
