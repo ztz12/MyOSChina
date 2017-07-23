@@ -3,6 +3,7 @@ package com.ztz.myoschina.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.ztz.myoschina.bean.TweetListResponse;
 import com.ztz.myoschina.widget.ImageLoad;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,8 +29,9 @@ import java.util.List;
 public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHolder> {
     Context context;
     List<TweetListResponse.TweetlistBean> tweetBeanList;
-    private int TYPE_HEADER=0;//头布局;
-    private int TYPE_NORMAL=1;//动弹布局
+    private int TYPE_HEADER = 0;//头布局;
+    private int TYPE_NORMAL = 1;//动弹布局
+    private static final String TAG = "TweetRVAdapter";
 
     public TweetRVAdapter(Context context, List<TweetListResponse.TweetlistBean> tweetBeanList) {
         this.context = context;
@@ -36,17 +39,16 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tweet,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tweet, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position=holder.getAdapterPosition();
-                Intent intent=new Intent(context, TweetActivity.class);
-                intent.putExtra(TweetActivity.TWEET_ID,tweetBeanList.get(position).getId());
+                int position = holder.getAdapterPosition();
+                Intent intent = new Intent(context, TweetActivity.class);
+                intent.putExtra(TweetActivity.TWEET_ID, tweetBeanList.get(position).getId());
 
 
                 context.startActivity(intent);
@@ -59,32 +61,49 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //绑定数据;
-        TweetListResponse.TweetlistBean tweet=tweetBeanList.get(position);
+        TweetListResponse.TweetlistBean tweet = tweetBeanList.get(position);
         holder.header.setImageURI(tweet.getPortrait());//Portrait 肖像
         holder.name.setText(tweet.getAuthor());
         holder.content.setText(tweet.getBody());
         holder.time.setText(tweet.getPubDate());
-        holder.comment.setText(tweet.getCommentCount()+"");//转换成string类型
-        String images=tweet.getImgSmall();
+        holder.comment.setText(tweet.getCommentCount() + "");//转换成string类型
+//        String images = tweet.getImgSmall();
+        String imgUrl = tweet.getImgSmall();
         //清空子view
-        for(int i=0;i<holder.imageLoad.getChildCount();i++){
+        for (int i = 0; i < holder.imageLoad.getChildCount(); i++) {
             holder.imageLoad.removeView(holder.imageLoad.getChildAt(i));
         }
-
         //加载图片
-        if(images==null){
+        if (imgUrl == null) {
             holder.imageLoad.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.imageLoad.setVisibility(View.VISIBLE);
-            holder.imageLoad.setImages(images);
-            final ArrayList<String> url=new ArrayList<>();
-            url.add(images);
+            final ArrayList<String> urls = new ArrayList<>();
+            //https://static.oschina.net/uploads/space/
+            String constantUrl = "https://static.oschina.net/uploads/space/";
+            Log.e(TAG, "onBindViewHolder: " + imgUrl);
+            if (imgUrl.indexOf(",") != -1) {
+                String[] arr = imgUrl.split(",");
+                urls.add(arr[0]);
+                Log.e(TAG, "onBindViewHolder: " + Arrays.toString(arr));
+//                String url = arr[0];
+                for (int a = 1; a < arr.length; a++) {
+                    String url = constantUrl + arr[a];
+                    Log.e(TAG, "onBindViewHolder: " + url);
+                    urls.add(url);
+                }
+            }else {
+                urls.add(imgUrl);
+            }
+            holder.imageLoad.setImages(imgUrl);
+//            final ArrayList<String> url = new ArrayList<>();
+//            url.add(images);
             holder.imageLoad.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ImagePagerActivity.class);
                     intent.putExtra(ImagePagerActivity.IMAGE_INDEX, 0);
-                    intent.putStringArrayListExtra(ImagePagerActivity.IMAGE_URL, url);
+                    intent.putStringArrayListExtra(ImagePagerActivity.IMAGE_URL, urls);
                     context.startActivity(intent);
                 }
             });
@@ -139,6 +158,7 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
 //                context.startActivity(intent);
 //            }
 //        });
+
     }
 
     @Override
@@ -156,25 +176,26 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
         LinearLayout item;
         RecyclerView rl;
         ImageLoad imageLoad;
+
         public ViewHolder(View view) {
             super(view);
-            header=(SimpleDraweeView)view.findViewById(R.id.simple_tweet);
-            name=(TextView)view.findViewById(R.id.tweet_name);
-            content=(TextView)view.findViewById(R.id.tweet_content);
-            imageLoad=(ImageLoad)view.findViewById(R.id.imageLoad);
+            header = (SimpleDraweeView) view.findViewById(R.id.simple_tweet);
+            name = (TextView) view.findViewById(R.id.tweet_name);
+            content = (TextView) view.findViewById(R.id.tweet_content);
+            imageLoad = (ImageLoad) view.findViewById(R.id.imageLoad);
 //            iv_detail=(ImageView)view.findViewById(R.id.iv_detail);
-            time=(TextView)view.findViewById(R.id.tweet_time);
-            comment=(TextView)view.findViewById(R.id.tweet_comment);
-            item=(LinearLayout)view;
+            time = (TextView) view.findViewById(R.id.tweet_time);
+            comment = (TextView) view.findViewById(R.id.tweet_comment);
+            item = (LinearLayout) view;
 //            rl=(RecyclerView)view.findViewById(R.id.rl_home);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
+        if (position == 0) {
             return TYPE_HEADER;
-        }else {
+        } else {
             return TYPE_NORMAL;
         }
     }

@@ -27,7 +27,7 @@ public class AuthorActivity extends AppCompatActivity {
 //        (A)：应用通过 浏览器 或 Webview 将用户引导到 OSChina 三方认证页面 上
 //        https://www.oschina.net/action/oauth2/authorize?response_type=code&client_id={client_id}①&redirect_uri={redirect_uri}②
 //        (B)：用户对应用进行授权
-//                (C)：OSChina 认证服务器 通过 回调地址（redirect_uri）将 用户授权码 传递给 应用服务器 或者直接在 Webview 中跳转到携带 用户授权码的回调地址上，Webview 直接获取code即可（redirect_uri?code=abc&state=xyz）
+//        (C)：OSChina 认证服务器 通过 回调地址（redirect_uri）将 用户授权码 传递给 应用服务器 或者直接在 Webview 中跳转到携带 用户授权码的回调地址上，Webview 直接获取code即可（redirect_uri?code=abc&state=xyz）
 //        (D)：应用服务器 或 Webview 使用 oauth2_token API 向 OSChina 认证服务器发送 用户授权码 以及 回调地址
 //        (E)： OSChina 认证服务器返回 AccessToken
         webView=(WebView)findViewById(R.id.web_View);
