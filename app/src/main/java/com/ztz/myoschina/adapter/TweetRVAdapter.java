@@ -69,10 +69,8 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
         holder.comment.setText(tweet.getCommentCount() + "");//转换成string类型
 //        String images = tweet.getImgSmall();
         String imgUrl = tweet.getImgSmall();
-        //清空子view
-        for (int i = 0; i < holder.imageLoad.getChildCount(); i++) {
-            holder.imageLoad.removeView(holder.imageLoad.getChildAt(i));
-        }
+        //移除所有的view
+        holder.imageLoad.removeAllViews();
         //加载图片
         if (imgUrl == null) {
             holder.imageLoad.setVisibility(View.GONE);
@@ -92,22 +90,22 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
                     Log.e(TAG, "onBindViewHolder: " + url);
                     urls.add(url);
                 }
-            }else {
+            } else {
                 urls.add(imgUrl);
             }
             holder.imageLoad.setImages(imgUrl);
-//            final ArrayList<String> url = new ArrayList<>();
-//            url.add(images);
-            holder.imageLoad.setOnClickListener(new View.OnClickListener() {
+            holder.imageLoad.setTweetImage(new ImageLoad.TweetImage() {
                 @Override
-                public void onClick(View view) {
+                public void tweetShow(int position) {
                     Intent intent = new Intent(context, ImagePagerActivity.class);
-                    intent.putExtra(ImagePagerActivity.IMAGE_INDEX, 0);
+                    intent.putExtra(ImagePagerActivity.IMAGE_INDEX, position);
                     intent.putStringArrayListExtra(ImagePagerActivity.IMAGE_URL, urls);
                     context.startActivity(intent);
                 }
             });
         }
+//            final ArrayList<String> url = new ArrayList<>();
+//            url.add(images);
 //        Glide.with(context).load(tweet.getImgSmall())
 //                .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .into(holder.iv_detail);

@@ -2,6 +2,7 @@ package com.ztz.myoschina.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -62,19 +63,25 @@ public class ImageLoad extends LinearLayout {
                 simpleDraw.setImageURI(url);
                 LayoutParams params=new LayoutParams(0,360,1);
                 linearLayout.addView(simpleDraw,params);
-                if(imageShow!=null){
-                    imageShow.imageShowing(url);
-                }
+                final int finalJ = j;
+                simpleDraw.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(tweetImage!=null){
+                            tweetImage.tweetShow(finalJ);
+                        }
+                    }
+                });
             }
             addView(linearLayout);
         }
     }
-    public ImageShow imageShow;
-    public interface ImageShow{
-        void imageShowing(String url);
+    public TweetImage tweetImage;
+    public interface TweetImage{
+        void tweetShow(int position);
     }
 
-    public void setImageShow(ImageShow imageShow) {
-        this.imageShow = imageShow;
+    public void setTweetImage(TweetImage tweetImage) {
+        this.tweetImage = tweetImage;
     }
 }

@@ -1,5 +1,6 @@
 package com.ztz.myoschina.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import com.ztz.myoschina.utils.PreferenceUtils;
 import com.ztz.myoschina.widget.ImageLoad;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TweetActivity extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class TweetActivity extends AppCompatActivity {
     ViewPager vp_Tweet;
     List<Fragment> fragmentList=new ArrayList<>();
     TweetAdapter adapter;
+    private static final String TAG = "TweetActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,14 +104,38 @@ public class TweetActivity extends AppCompatActivity {
                         tv_Tweet_content.setText(tweetResponse.getBody());
                         tv_Time.setText(tweetResponse.getPubDate());
                         String images=tweetResponse.getImgSmall();
-                        for(int i=0;i<tweetLoad.getChildCount();i++){
-                            tweetLoad.removeView(tweetLoad.getChildAt(i));
-                        }
-                        if(images==null){
+                        tweetLoad.removeAllViews();
+                        //加载图片
+                        if (images == null) {
                             tweetLoad.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tweetLoad.setVisibility(View.VISIBLE);
+                            final ArrayList<String> urls = new ArrayList<>();
+                            //https://static.oschina.net/uploads/space/
+                            String constantUrl = "https://static.oschina.net/uploads/space/";
+                            Log.e(TAG, "onBindViewHolder: " + images);
+                            if (images.indexOf(",") != -1) {
+                                String[] arr = images.split(",");
+                                urls.add(arr[0]);
+                                Log.e(TAG, "onBindViewHolder: " + Arrays.toString(arr));
+                                for (int a = 1; a < arr.length; a++) {
+                                    String url = constantUrl + arr[a];
+                                    Log.e(TAG, "onBindViewHolder: " + url);
+                                    urls.add(url);
+                                }
+                            }else {
+                                urls.add(images);
+                            }
                             tweetLoad.setImages(images);
+                            tweetLoad.setTweetImage(new ImageLoad.TweetImage() {
+                                @Override
+                                public void tweetShow(int position) {
+                                    Intent intent = new Intent(TweetActivity.this, ImagePagerActivity.class);
+                                    intent.putExtra(ImagePagerActivity.IMAGE_INDEX, position);
+                                    intent.putStringArrayListExtra(ImagePagerActivity.IMAGE_URL, urls);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     }
                 });
