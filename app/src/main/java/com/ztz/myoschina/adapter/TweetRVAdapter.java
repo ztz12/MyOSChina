@@ -80,7 +80,7 @@ public class TweetRVAdapter extends RecyclerView.Adapter<TweetRVAdapter.ViewHold
             //https://static.oschina.net/uploads/space/
             String constantUrl = "https://static.oschina.net/uploads/space/";
             Log.e(TAG, "onBindViewHolder: " + imgUrl);
-            if (imgUrl.indexOf(",") != -1) {
+            if (imgUrl.indexOf(",") != -1) {//url中包含逗号
                 String[] arr = imgUrl.split(",");
                 urls.add(arr[0]);
                 Log.e(TAG, "onBindViewHolder: " + Arrays.toString(arr));

@@ -38,6 +38,7 @@ dependencies {
 	compile 'jp.wasabeef:glide-transformations:2.0.2'
     compile 'org.greenrobot:eventbus:+'
 	compile 'com.github.chrisbanes:PhotoView:2.1.2'
+	compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 	compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

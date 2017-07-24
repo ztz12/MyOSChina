@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.liaoinstan.springview.container.AliFooter;
-import com.liaoinstan.springview.container.AliHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ztz.myoschina.R;
 import com.ztz.myoschina.adapter.TweetRVAdapter;
 import com.ztz.myoschina.bean.TweetListResponse;
@@ -38,7 +39,7 @@ public class NewsTweetFragment extends BaseFragment {
     private SpringView spring_tweet;
     int pageIndex=1;
     private RecyclerView recycler_tweet;
-
+    private RefreshLayout refreshLayout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,19 +51,37 @@ public class NewsTweetFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        spring_tweet = (SpringView)view.findViewById(R.id.spring_tweet);
-        spring_tweet.setHeader(new AliHeader(getContext()));
-        spring_tweet.setFooter(new AliFooter(getContext()));
-        spring_tweet.setListener(new SpringView.OnFreshListener() {
+//        spring_tweet = (SpringView)view.findViewById(R.id.spring_tweet);
+//        spring_tweet.setHeader(new AliHeader(getContext()));
+//        spring_tweet.setFooter(new AliFooter(getContext()));
+//        spring_tweet.setListener(new SpringView.OnFreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                tweetlistBeanList.clear();
+//                pageIndex=1;
+//                getData();
+//            }
+//
+//            @Override
+//            public void onLoadmore() {
+//                pageIndex++;
+//                getData();
+//            }
+//        });
+        refreshLayout=(RefreshLayout)view.findViewById(R.id.tweet_refresh);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000);
                 tweetlistBeanList.clear();
                 pageIndex=1;
                 getData();
             }
-
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
-            public void onLoadmore() {
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000);
                 pageIndex++;
                 getData();
             }
@@ -102,7 +121,7 @@ public class NewsTweetFragment extends BaseFragment {
                         tweetlistBeanList.clear();
                         tweetlistBeanList.addAll(tweetResponse.getTweetlist());
                         adapter.notifyDataSetChanged();
-                        spring_tweet.onFinishFreshAndLoad();//重置控件位置，暴露给外部方法，用于刷新或者加载完成后调用
+//                        spring_tweet.onFinishFreshAndLoad();//重置控件位置，暴露给外部方法，用于刷新或者加载完成后调用
                     }
                 });
 

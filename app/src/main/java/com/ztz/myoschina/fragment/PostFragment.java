@@ -61,14 +61,14 @@ public class PostFragment extends BaseFragment {
                 //刷新数据
                 postList.clear();//清空列表
                 pageIndex=1;
-//                getData();
+                getData();
             }
 
             @Override
             public void onLoadmore() {
                 //上拉加载更多
                 pageIndex++;
-//                getData();
+                getData();
             }
         });
          recyclerPost= (RecyclerView)view.findViewById(R.id.recycler_post);

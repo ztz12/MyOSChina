@@ -7,16 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scView">
-    <com.liaoinstan.springview.widget.SpringView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/news_spring">
+        android:id="@+id/news_refresh">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_compare_news"
         android:background="#ffffff"></android.support.v7.widget.RecyclerView>
-    </com.liaoinstan.springview.widget.SpringView>
+   </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </ScrollView>
     <ImageView
         android:layout_width="50dp"
